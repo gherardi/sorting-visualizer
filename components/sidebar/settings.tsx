@@ -1,0 +1,50 @@
+"use client";
+
+import { SegmentedGroup, SelectGroup } from "@/components/sidebar/option-groups";
+import { algorithms, arraySizes, speeds } from "@/lib/algorithms";
+import { useVisualizer } from "@/lib/store";
+
+export function AlgorithmSetting() {
+  const algorithm = useVisualizer((s) => s.algorithm);
+  const setAlgorithm = useVisualizer((s) => s.setAlgorithm);
+
+  return (
+    <SelectGroup
+      name="algorithm"
+      label="Algorithm"
+      options={algorithms}
+      value={algorithm}
+      onValueChange={setAlgorithm}
+    />
+  );
+}
+
+export function ArraySizeSetting() {
+  const arraySize = useVisualizer((s) => s.arraySize);
+  const setArraySize = useVisualizer((s) => s.setArraySize);
+
+  return (
+    <SegmentedGroup
+      name="array-size"
+      label="Array Size"
+      options={arraySizes}
+      value={arraySize}
+      onValueChange={setArraySize}
+    />
+  );
+}
+
+export function SpeedSetting() {
+  const speed = useVisualizer((s) => s.speed);
+  const setSpeed = useVisualizer((s) => s.setSpeed);
+
+  return (
+    <SegmentedGroup
+      name="speed"
+      label="Speed"
+      options={speeds}
+      value={speed}
+      onValueChange={setSpeed}
+    />
+  );
+}
