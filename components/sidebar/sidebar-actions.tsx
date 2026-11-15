@@ -13,6 +13,8 @@ import { useVisualizer } from "@/lib/store";
 
 export function SidebarActions() {
   const randomizeArray = useVisualizer((s) => s.randomizeArray);
+  const sortArray = useVisualizer((s) => s.sortArray);
+  const isSorting = useVisualizer((s) => s.isSorting);
 
   return (
     <SidebarGroup>
@@ -23,8 +25,12 @@ export function SidebarActions() {
         <Tooltip>
           <TooltipTrigger
             render={
-              <Button variant="outline" size="icon" aria-label="Randomize array"
+              <Button
+                variant="outline"
+                size="icon"
+                aria-label="Randomize array"
                 onClick={randomizeArray}
+                disabled={isSorting}
               >
                 <RotateCcw />
               </Button>
@@ -32,7 +38,13 @@ export function SidebarActions() {
           />
           <TooltipContent>Randomize Array</TooltipContent>
         </Tooltip>
-        <Button className="flex-1">Sort Array</Button>
+        <Button
+          className="flex-1"
+          onClick={sortArray}
+          disabled={isSorting}
+        >
+          {isSorting ? "Sorting…" : "Sort Array"}
+        </Button>
       </SidebarGroupContent>
     </SidebarGroup>
   );

@@ -7,6 +7,7 @@ import { useVisualizer } from "@/lib/store";
 export function AlgorithmSetting() {
   const algorithm = useVisualizer((s) => s.algorithm);
   const setAlgorithm = useVisualizer((s) => s.setAlgorithm);
+  const isSorting = useVisualizer((s) => s.isSorting);
 
   return (
     <SelectGroup
@@ -15,6 +16,7 @@ export function AlgorithmSetting() {
       options={algorithms}
       value={algorithm}
       onValueChange={setAlgorithm}
+      disabled={isSorting}
     />
   );
 }
@@ -22,6 +24,7 @@ export function AlgorithmSetting() {
 export function ArraySizeSetting() {
   const arraySize = useVisualizer((s) => s.arraySize);
   const setArraySize = useVisualizer((s) => s.setArraySize);
+  const isSorting = useVisualizer((s) => s.isSorting);
 
   return (
     <SegmentedGroup
@@ -30,6 +33,7 @@ export function ArraySizeSetting() {
       options={arraySizes}
       value={arraySize}
       onValueChange={setArraySize}
+      disabled={isSorting}
     />
   );
 }
@@ -37,6 +41,7 @@ export function ArraySizeSetting() {
 export function SpeedSetting() {
   const speed = useVisualizer((s) => s.speed);
   const setSpeed = useVisualizer((s) => s.setSpeed);
+  const isSorting = useVisualizer((s) => s.isSorting);
 
   return (
     <SegmentedGroup
@@ -45,6 +50,7 @@ export function SpeedSetting() {
       options={speeds}
       value={speed}
       onValueChange={setSpeed}
+      disabled={isSorting}
     />
   );
 }

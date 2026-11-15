@@ -18,6 +18,7 @@ type OptionGroupProps<T extends string> = {
   options: ReadonlyArray<{ id: T; title: string }>;
   value: T;
   onValueChange: (value: T) => void;
+  disabled?: boolean;
 };
 
 export function SelectGroup<T extends string>({
@@ -26,6 +27,7 @@ export function SelectGroup<T extends string>({
   options,
   value,
   onValueChange,
+  disabled,
 }: OptionGroupProps<T>) {
   return (
     <SidebarGroup>
@@ -37,6 +39,7 @@ export function SelectGroup<T extends string>({
           id={name}
           className="w-full"
           value={value}
+          disabled={disabled}
           onChange={(e) => onValueChange(e.target.value as T)}
         >
           {options.map((item) => (
@@ -56,6 +59,7 @@ export function SegmentedGroup<T extends string>({
   options,
   value,
   onValueChange,
+  disabled,
 }: OptionGroupProps<T>) {
   const labelId = `${name}-label`;
 
@@ -67,6 +71,7 @@ export function SegmentedGroup<T extends string>({
           aria-labelledby={labelId}
           className="grid-cols-3"
           value={value}
+          disabled={disabled}
           onValueChange={(value) => onValueChange(value as T)}
         >
           {options.map((item) => {

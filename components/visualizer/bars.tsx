@@ -2,10 +2,13 @@
 
 import { useEffect } from "react"
 
+import { cn } from "cn"
 import { useVisualizer } from "@/lib/store"
 
 export function Bars() {
   const array = useVisualizer((s) => s.array)
+  const active = useVisualizer((s) => s.active)
+  const sorted = useVisualizer((s) => s.sorted)
   const randomizeArray = useVisualizer((s) => s.randomizeArray)
 
   useEffect(() => {
@@ -17,7 +20,14 @@ export function Bars() {
       {array.map((value, i) => (
         <div
           key={i}
-          className="flex-1 rounded-t-sm bg-primary transition-[height] duration-150"
+          className={cn(
+            "flex-1 rounded-t-sm",
+            active.includes(i)
+              ? "bg-yellow-300"
+              : sorted
+                ? "bg-chart-2"
+                : "bg-primary"
+          )}
           style={{ height: `${value}%` }}
         />
       ))}
