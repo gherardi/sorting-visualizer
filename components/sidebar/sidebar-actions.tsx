@@ -9,8 +9,11 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useVisualizer } from "@/lib/store";
 
 export function SidebarActions() {
+  const randomizeArray = useVisualizer((s) => s.randomizeArray);
+
   return (
     <SidebarGroup>
       <SidebarGroupLabel render={<label htmlFor="actions" />}>
@@ -20,7 +23,9 @@ export function SidebarActions() {
         <Tooltip>
           <TooltipTrigger
             render={
-              <Button variant="outline" size="icon" aria-label="Randomize array">
+              <Button variant="outline" size="icon" aria-label="Randomize array"
+                onClick={randomizeArray}
+              >
                 <RotateCcw />
               </Button>
             }
