@@ -7,7 +7,7 @@ import {
   type ArraySizeId,
   type SpeedId,
 } from "@/lib/algorithms"
-import { sorters } from "@/lib/sorting"
+import { frames } from "@/lib/sorting"
 
 const MIN_VALUE = 5
 const MAX_VALUE = 100
@@ -26,10 +26,10 @@ type VisualizerState = {
   algorithm: AlgorithmId
   arraySize: ArraySizeId
   speed: SpeedId
-  array: number[]
+  array: readonly number[]
   isSorting: boolean
   /** Indices currently being compared or moved. */
-  active: number[]
+  active: readonly number[]
   sorted: boolean
   setAlgorithm: (algorithm: AlgorithmId) => void
   setArraySize: (arraySize: ArraySizeId) => void
@@ -65,20 +65,8 @@ export const useVisualizer = create<VisualizerState>()((set, get) => ({
     if (isSorting) return
     set({ isSorting: true, sorted: false, active: [] })
 
-    const working = [...array]
-    for (const step of sorters[algorithm](array)) {
-      let active: number[]
-      if (step.type === "overwrite") {
-        working[step.index] = step.value
-        active = [step.index]
-      } else {
-        const [i, j] = step.indices
-        if (step.type === "swap") {
-          ;[working[i], working[j]] = [working[j], working[i]]
-        }
-        active = [i, j]
-      }
-      set({ array: [...working], active })
+    for (const frame of frames(algorithm, array)) {
+      set({ array: frame.array, active: frame.active })
       // Read the delay on every step so the current speed always applies.
       await sleep(speeds.find((s) => s.id === get().speed)!.delay)
     }

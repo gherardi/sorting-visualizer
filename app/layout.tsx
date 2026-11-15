@@ -29,7 +29,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="h-svh">
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange
         >
